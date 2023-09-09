@@ -1,6 +1,7 @@
 package jp.co.axa.apidemo.controllers;
 
 import jp.co.axa.apidemo.entities.Employee;
+import jp.co.axa.apidemo.exceptions.CustomException;
 import jp.co.axa.apidemo.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,10 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees/add")
-    public void saveEmployee(Employee employee){
+    public void saveEmployee(Employee employee) throws CustomException {
+        if (employee.getId() != null) {
+            throw new CustomException("id cannot be set manually");
+        }
         employeeService.saveEmployee(employee);
         System.out.println("Employee Saved Successfully");
     }

@@ -19,7 +19,6 @@ public class Employee {
     @Setter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @NotNull
     private Long id;
 
     @Getter
