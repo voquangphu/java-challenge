@@ -1,52 +1,72 @@
-### How to use this spring-boot project
+# Employee Management API
 
-- Install packages with `mvn package`
-- Run `mvn spring-boot:run` for starting the application (or use your IDE)
+This API provides CRUD (Create, Read, Update, Delete) operations to manage employee data.
 
-Application (with the embedded H2 database) is ready to be used ! You can access the url below for testing it :
+## Table of Contents
 
-- Swagger UI : http://localhost:8080/swagger-ui.html
-- H2 UI : http://localhost:8080/h2-console
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+  - [Endpoints](#endpoints)
+  - [Request and Response Examples](#request-and-response-examples)
+- [API Documentation](#api-documentation)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
 
-> Don't forget to set the `JDBC URL` value as `jdbc:h2:mem:testdb` for H2 UI.
+## Getting Started
 
+### Prerequisites
 
+- Java 8 or higher
+- Maven
+- Your preferred IDE (e.g., IntelliJ, Eclipse)
 
-### Instructions
+### Installation
 
-- download the zip file of this project
-- create a repository in your own github named 'java-challenge'
-- clone your repository in a folder on your machine
-- extract the zip file in this folder
-- commit and push
+1. Clone this repository.
+2. Open the project in your preferred IDE.
+3. Build the project using Maven.
 
-- Enhance the code in any ways you can see, you are free! Some possibilities:
-  - Add tests
-  - Change syntax
-  - Protect controller end points
-  - Add caching logic for database calls
-  - Improve doc and comments
-  - Fix any bug you might find
-- Edit readme.md and add any comments. It can be about what you did, what you would have done if you had more time, etc.
-- Send us the link of your repository.
+## Usage
 
-#### Restrictions
-- use java 8
+### Endpoints
 
+#### Get Employee Data
 
-#### What we will look for
-- Readability of your code
-- Documentation
-- Comments in your code 
-- Appropriate usage of spring boot
-- Appropriate usage of packages
-- Is the application running as expected
-- No performance issues
+- **Endpoint:** `GET /api/v1/employees`
+- **Description:** Retrieves a list of all employees.
 
-#### Your experience in Java
+#### Get Employee by ID
 
-Please let us know more about your Java experience in a few sentences. For example:
+- **Endpoint:** `GET /api/v1/employees/{id}`
+- **Description:** Retrieves employee details by ID.
 
-- I have 3 years experience in Java and I started to use Spring Boot from last year
-- I'm a beginner and just recently learned Spring Boot
-- I know Spring Boot very well and have been using it for many years
+#### Add Employee
+
+- **Endpoint:** `POST /api/v1/employees/add`
+- **Description:** Adds a new employee.
+
+#### Update Employee
+
+- **Endpoint:** `PUT /api/v1/employees/update/{id}`
+- **Description:** Updates employee details by ID.
+
+#### Delete Employee
+
+- **Endpoint:** `DELETE /api/v1/employees/delete/{id}`
+- **Description:** Deletes an employee by ID.
+
+### Request and Response Examples
+- Swagger: http://localhost:8080/swagger-ui.html
+- Configuration: https://github.com/voquangphu/java-challenge/blob/main/src/main/java/jp/co/axa/apidemo/configurations/SwaggerConfiguration.java
+
+### Logging
+- Logback path: mylog.log
+- Configuration: https://github.com/voquangphu/java-challenge/blob/main/src/main/resources/logback.xml
+
+#### My experience in Java
+- I have 10 years experience using Java, knowledge with Struts, Spring MVC, SpringBoot
+- I started learning Spring MVC and Spring Boot when I got my current job about 2 years ago, before that I self-learnt a bit
+- I basically learn as my job required by looking at other people's code, but Spring has been my choice of framework since I knew it due to great support, documentation, popularity

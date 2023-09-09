@@ -36,6 +36,7 @@ public class EmployeeController {
 
     @PostMapping("/employees/add")
     public ResponseEntity saveEmployee(Employee employee) throws CustomException {
+        // in case id is null, throw exception
         if (employee.getId() != null) {
             throw new CustomException("id cannot be set manually");
         }
@@ -49,6 +50,7 @@ public class EmployeeController {
 
     @DeleteMapping("/employees/delete/{employeeId}")
     public ResponseEntity deleteEmployee(@PathVariable (name="employeeId") @NotNull Long employeeId) throws CustomException {
+        // if id does not exist in DB, throw exception
         if (employeeService.getEmployee(employeeId) == null) {
             throw new CustomException("Employee id does not exist");
         }
@@ -63,9 +65,11 @@ public class EmployeeController {
     @PutMapping("/employees/update/{employeeId}")
     public ResponseEntity updateEmployee(Employee employee,
                                @PathVariable (name="employeeId") @NotNull Long employeeId) throws CustomException {
+        // if id is mismatched, throw exception
         if (employee.getId() != null && !employee.getId().equals(employeeId)) {
             throw new CustomException("Employee from request body and path is mismatched");
         }
+        // if id does not exist in DB, throw exception
         if (employeeService.getEmployee(employeeId) == null) {
             throw new CustomException("Employee id does not exist");
         }
