@@ -25,23 +25,23 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable(name="employeeId")Long employeeId) {
+    public Employee getEmployee(@PathVariable (name="employeeId") Long employeeId) {
         return employeeService.getEmployee(employeeId);
     }
 
-    @PostMapping("/employees")
+    @PostMapping("/employees/add")
     public void saveEmployee(Employee employee){
         employeeService.saveEmployee(employee);
         System.out.println("Employee Saved Successfully");
     }
 
-    @DeleteMapping("/employees/{employeeId}")
+    @DeleteMapping("/employees/delete/{employeeId}")
     public void deleteEmployee(@PathVariable(name="employeeId")Long employeeId){
         employeeService.deleteEmployee(employeeId);
         System.out.println("Employee Deleted Successfully");
     }
 
-    @PutMapping("/employees/{employeeId}")
+    @PutMapping("/employees/update/{employeeId}")
     public void updateEmployee(@RequestBody Employee employee,
                                @PathVariable(name="employeeId")Long employeeId){
         Employee emp = employeeService.getEmployee(employeeId);
