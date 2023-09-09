@@ -6,6 +6,7 @@ import jp.co.axa.apidemo.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -36,14 +37,23 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees/delete/{employeeId}")
-    public void deleteEmployee(@PathVariable(name="employeeId")Long employeeId){
+    public void deleteEmployee(@PathVariable (name="employeeId") @NotNull Long employeeId) throws CustomException {
+        if (employeeService.getEmployee(employeeId) == null) {
+            throw new CustomException("Employee id does not exist");
+        }
         employeeService.deleteEmployee(employeeId);
         System.out.println("Employee Deleted Successfully");
     }
 
     @PutMapping("/employees/update/{employeeId}")
-    public void updateEmployee(@RequestBody Employee employee,
-                               @PathVariable(name="employeeId")Long employeeId){
+    public void updateEmployee(Employee employee,
+                               @PathVariable (name="employeeId") @NotNull Long employeeId) throws CustomException {
+        if (employee.getId() != null && !employee.getId().equals(employeeId)) {
+            throw new CustomException("Employee from request body and path is mismatched");
+        }
+        if (employeeService.getEmployee(employeeId) == null) {
+            throw new CustomException("Employee id does not exist");
+        }
         Employee emp = employeeService.getEmployee(employeeId);
         if(emp != null){
             employeeService.updateEmployee(employee);
