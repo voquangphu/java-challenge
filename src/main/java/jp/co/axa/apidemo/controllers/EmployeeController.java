@@ -6,6 +6,9 @@ import jp.co.axa.apidemo.services.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -32,25 +35,33 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees/add")
-    public void saveEmployee(Employee employee) throws CustomException {
+    public ResponseEntity saveEmployee(Employee employee) throws CustomException {
         if (employee.getId() != null) {
             throw new CustomException("id cannot be set manually");
         }
         employeeService.saveEmployee(employee);
         logger.info("Employee Id " + employee.getId() + " Saved Successfully");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
+        return new ResponseEntity<>("{\"message\": \"" + "Employee Id " + employee.getId() + " Saved Successfully" + "\"}", headers, HttpStatus.OK);
     }
 
     @DeleteMapping("/employees/delete/{employeeId}")
-    public void deleteEmployee(@PathVariable (name="employeeId") @NotNull Long employeeId) throws CustomException {
+    public ResponseEntity deleteEmployee(@PathVariable (name="employeeId") @NotNull Long employeeId) throws CustomException {
         if (employeeService.getEmployee(employeeId) == null) {
             throw new CustomException("Employee id does not exist");
         }
         employeeService.deleteEmployee(employeeId);
         logger.info("Employee Id " + employeeId + " Deleted Successfully");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
+        return new ResponseEntity<>("{\"message\": \"" + "Employee Id " + employeeId + " Deleted Successfully" + "\"}", headers, HttpStatus.OK);
     }
 
     @PutMapping("/employees/update/{employeeId}")
-    public void updateEmployee(Employee employee,
+    public ResponseEntity updateEmployee(Employee employee,
                                @PathVariable (name="employeeId") @NotNull Long employeeId) throws CustomException {
         if (employee.getId() != null && !employee.getId().equals(employeeId)) {
             throw new CustomException("Employee from request body and path is mismatched");
@@ -63,6 +74,10 @@ public class EmployeeController {
             employeeService.updateEmployee(employee);
         }
         logger.info("Employee Id " + employeeId + " Updated Successfully");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/json");
+        return new ResponseEntity<>("{\"message\": \"" + "Employee Id " + employeeId + " Updated Successfully" + "\"}", headers, HttpStatus.OK);
     }
 
 }
