@@ -66,7 +66,7 @@ This API provides CRUD (Create, Read, Update, Delete) operations to manage emplo
 - Logback path: mylog.log
 - Configuration: https://github.com/voquangphu/java-challenge/blob/main/src/main/resources/logback.xml
 
-#### My experience in Java
+#### My experience with Java
 - I have 10 years experience using Java, knowledge with Struts, Spring MVC, SpringBoot
 - I started learning Spring MVC and Spring Boot when I got my current job about 2 years ago, before that I self-learnt a bit
 - I basically learn as my job required by looking at other people's code, but Spring has been my choice of framework since I knew it due to great support, documentation, popularity
