@@ -3,6 +3,8 @@ package jp.co.axa.apidemo.controllers;
 import jp.co.axa.apidemo.entities.Employee;
 import jp.co.axa.apidemo.exceptions.CustomException;
 import jp.co.axa.apidemo.services.EmployeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
@@ -33,7 +37,7 @@ public class EmployeeController {
             throw new CustomException("id cannot be set manually");
         }
         employeeService.saveEmployee(employee);
-        System.out.println("Employee Saved Successfully");
+        logger.info("Employee Id " + employee.getId() + " Saved Successfully");
     }
 
     @DeleteMapping("/employees/delete/{employeeId}")
@@ -42,7 +46,7 @@ public class EmployeeController {
             throw new CustomException("Employee id does not exist");
         }
         employeeService.deleteEmployee(employeeId);
-        System.out.println("Employee Deleted Successfully");
+        logger.info("Employee Id " + employeeId + " Deleted Successfully");
     }
 
     @PutMapping("/employees/update/{employeeId}")
@@ -58,7 +62,7 @@ public class EmployeeController {
         if(emp != null){
             employeeService.updateEmployee(employee);
         }
-
+        logger.info("Employee Id " + employeeId + " Updated Successfully");
     }
 
 }
